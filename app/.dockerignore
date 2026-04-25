@@ -1,8 +1,7 @@
-.examples
-Dockerfile
-.github
-.idea
 .git
-web/app
-*.db
-testdata
+.gitignore
+.git/*
+.DS_Store
+.md
+docker-compose.yml
+Dockerfile
