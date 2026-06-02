@@ -4,11 +4,16 @@ variable "vpc_cidr" {
 }
 
 variable "priv_subnet_cidr" {
-  type = list(string)
+  type = set(string)
   default = [ "10.0.0.0/24", "10.0.1.0/24" ]
 }
 
 variable "pub_subnet_cidr" {
-  type = list(string)
+  type = set(string)
   default = [ "10.0.2.0/24", "10.0.3.0/24" ]
+}
+
+variable "app" {
+  type = string
+  default = "gatus"
 }

@@ -8,3 +8,13 @@ terraform {
     }
   }
 }
+
+terraform {
+  backend "s3" {
+    bucket = "ransain"
+    key = "state/terraform.tfstate"
+    region = "eu-west-2"
+    use_lockfile = true
+    encrypt = true
+  }
+}
