@@ -6,18 +6,18 @@ resource "aws_vpc" "gatus_vpc" {
   }
 }
 
-resource "aws_subnet" "pub_subnet" {
-  for_each = var.pub_subnet_cidr
+resource "aws_subnet" "gatus_subnet" {
+  for_each = var.subnet
   vpc_id = aws_vpc.gatus_vpc.id
-  cidr_block = each.value
+  cidr_block = each.value.cidr
+  availability_zone = each.value.az
 }
 
-resource "aws_subnet" "priv_subnet" {
-  for_each = var.priv_subnet_cidr
+resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.gatus_vpc.id
-  cidr_block = each.value
+  tags = {
+    Name = "${var.app}-igw"
+  }
 }
 
-
-# https://medium.com/@kajals909/terraform-variables-explained-how-to-use-string-number-list-map-boolean-types-part-2-67ad6b844673
-# https://oneuptime.com/blog/post/2026-02-23-terraform-for-each-each-key-each-value/view
+add tags to subnets
