@@ -1,48 +1,43 @@
 variable "vpc_cidr" {
-  type = string
+  type    = string
   default = "10.0.0.0/16"
 }
 
-
-
 variable "app" {
-  type = string
+  type    = string
   default = "gatus"
 }
-
-#
 
 variable "subnet" {
   type = map(object({
     cidr = string
-    az = string
+    az   = string
+    name = string
   }))
 
   default = {
     "pub_subnet_1" = {
       cidr = "10.0.1.0/24"
-      az = "eu-west-2a"
+      az   = "eu-west-2a"
+      name = "pub-sub-1"
     }
 
     "priv_subnet_1" = {
       cidr = "10.0.2.0/24"
-      az = "eu-west-2a"
+      az   = "eu-west-2a"
+      name = "priv-sub-1"
     }
 
     "pub_subnet_2" = {
       cidr = "10.0.3.0/24"
-      az = "eu-west-2b"
+      az   = "eu-west-2b"
+      name = "pub-sub-2"
     }
 
     "priv_subnet_2" = {
       cidr = "10.0.4.0/24"
-      az = "eu-west-2b"
+      az   = "eu-west-2b"
+      name = "priv-sub-2"
     }
-
   }
 }
-
-# https://spacelift.io/blog/terraform-map-variable
-# https://oneuptime.com/blog/post/2026-02-23-how-to-pass-maps-of-objects-as-variables-in-terraform/view
-# https://spacelift.io/blog/terraform-functions-expressions-loops#terraform-loops-
-# https://spacelift.io/blog/how-to-use-terraform-variables#how-to-use-variables-in-foreach-loop

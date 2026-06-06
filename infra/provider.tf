@@ -3,8 +3,8 @@ terraform {
 
   required_providers {
     aws = {
-        source = "hashicorp/aws"
-        version = "6.45.0"
+      source  = "hashicorp/aws"
+      version = "6.45.0"
     }
   }
 }
@@ -15,10 +15,10 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "ransain"
-    key = "state/terraform.tfstate"
-    region = "eu-west-2"
+    bucket       = "ransain"
+    key          = "state/terraform.tfstate"
+    region       = "eu-west-2"
     use_lockfile = true
-    encrypt = true
+    encrypt      = true
   }
 }
