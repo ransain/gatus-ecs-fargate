@@ -1,43 +1,29 @@
-variable "vpc_cidr" {
-  type    = string
-  default = "10.0.0.0/16"
-}
-
 variable "app" {
   type    = string
   default = "gatus"
 }
 
-variable "subnet" {
-  type = map(object({
-    cidr = string
-    az   = string
-    name = string
-  }))
+variable "vpc_cidr" {
+  type    = string
+  default = "10.0.0.0/16"
+}
 
-  default = {
-    "pub_subnet_1" = {
-      cidr = "10.0.1.0/24"
-      az   = "eu-west-2a"
-      name = "pub-sub-1"
-    }
+variable "cidr_block_pub" {
+  type        = list(string)
+  description = "cidr values for public subnets"
+  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+}
 
-    "priv_subnet_1" = {
-      cidr = "10.0.2.0/24"
-      az   = "eu-west-2a"
-      name = "priv-sub-1"
-    }
+variable "cidr_block_priv" {
+  type        = list(string)
+  description = "cidr values for private subnets"
+  default     = ["10.0.3.0/24", "10.0.4.0/24"]
+}
 
-    "pub_subnet_2" = {
-      cidr = "10.0.3.0/24"
-      az   = "eu-west-2b"
-      name = "pub-sub-2"
-    }
+### Availability Zones
 
-    "priv_subnet_2" = {
-      cidr = "10.0.4.0/24"
-      az   = "eu-west-2b"
-      name = "priv-sub-2"
-    }
-  }
+variable "az" {
+  type        = list(string)
+  description = "availability zones"
+  default     = ["eu-west-2a", "eu-west-2b"]
 }
