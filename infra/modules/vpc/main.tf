@@ -55,7 +55,7 @@ resource "aws_route_table" "gatus_pub_rt" {
   }
 
   tags = {
-    Name = "${var.app}-rt"
+    Name = "${var.app}-pub-rt"
   }
 }
 
@@ -63,4 +63,12 @@ resource "aws_route_table_association" "rt_pub" {
   count          = length(var.cidr_block_pub)
   subnet_id      = aws_subnet.pub_sub[count.index].id
   route_table_id = aws_route_table.gatus_pub_rt.id
+}
+
+resource "aws_security_group" "allow_http_https" {
+  vpc_id = aws_vpc.gatus_vpc.id
+  name = "allow http and https"
+  tags = {
+    Name = "allow http and https"
+  }
 }
