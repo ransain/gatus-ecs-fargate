@@ -65,10 +65,30 @@ resource "aws_route_table_association" "rt_pub" {
   route_table_id = aws_route_table.gatus_pub_rt.id
 }
 
-resource "aws_security_group" "allow_http_https" {
+# SECURITY GROUP
+
+resource "aws_security_group" "sg_http_https" {
   vpc_id = aws_vpc.gatus_vpc.id
-  name = "allow http and https"
+  name   = "allow http and https"
   tags = {
     Name = "allow http and https"
   }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "http_rule" {
+  security_group_id = aws_security_group.sg_http_https.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = "80"
+  to_port     = "80"
+  ip_protocol = "tcp"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "https_rule" {
+  security_group_id = aws_security_group.sg_http_https.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = "443"
+  to_port     = "443"
+  ip_protocol = "tcp"
 }
