@@ -65,7 +65,7 @@ resource "aws_route_table_association" "rt_pub" {
   route_table_id = aws_route_table.gatus_pub_rt.id
 }
 
-# SECURITY GROUP
+# SECURITY GROUP for HTTP and HTTPS
 
 resource "aws_security_group" "sg_http_https" {
   vpc_id = aws_vpc.gatus_vpc.id
@@ -90,5 +90,24 @@ resource "aws_vpc_security_group_ingress_rule" "https_rule" {
   cidr_ipv4   = "0.0.0.0/0"
   from_port   = "443"
   to_port     = "443"
+  ip_protocol = "tcp"
+}
+
+# SECURITY GROUP FOR ECS
+
+resource "aws_security_group" "ecs_sg" {
+  vpc_id = aws_vpc.gatus_vpc.id
+  name   = "allow port 8080"
+  tags = {
+    Name = "allow-port-8080"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ecs_allow" {
+  security_group_id = aws_security_group.ecs_sg.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = "8080"
+  to_port     = "8080"
   ip_protocol = "tcp"
 }
