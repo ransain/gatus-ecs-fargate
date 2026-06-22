@@ -4,6 +4,10 @@ module "acm" {
 
 module "alb" {
   source = "./modules/alb"
+  alb_sg = module.vpc.security_groups
+  alb_vpc_id = module.vpc.vpc_id
+  alb_subnet = [ module.vpc.aws_subnet.pub_sub ]
+  alb_tg_ip = 
 }
 
 module "ecr" {
