@@ -3,11 +3,11 @@ module "acm" {
 }
 
 module "alb" {
-  source = "./modules/alb"
-  alb_sg = module.vpc.security_groups
+  source     = "./modules/alb"
+  alb_sg     = module.vpc.sg_id
   alb_vpc_id = module.vpc.vpc_id
-  alb_subnet = [ module.vpc.aws_subnet.pub_sub ]
-  alb_tg_ip = 
+  alb_subnet = [ module.vpc.pub_sub_id ]
+  alb_tg_ip  = mo
 }
 
 module "ecr" {
@@ -15,7 +15,8 @@ module "ecr" {
 }
 
 module "ecs" {
-  source = "./modules/ecs"
+  source          = "./modules/ecs"
+  container_image = "${var.ecr_repo}:latest"
 }
 
 module "r53" {

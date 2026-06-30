@@ -15,7 +15,7 @@ resource "aws_alb_target_group" "alb_tg" {
 
 resource "aws_alb_target_group_attachment" "alb_tg_attach" {
   target_group_arn = aws_alb_target_group.alb_tg.arn
-  target_id        = var.alb_tg_ip
+  target_id        = var.alb_tg_ip # this is the ip of the containers, need to add this as an output from ecs module
 }
 
 resource "aws_alb_listener" "http" {
@@ -43,7 +43,7 @@ resource "aws_alb_listener" "https" {
     type = "forward"
     forward {
       target_group {
-        arn = var.tg_arn
+        arn = aws_alb_target_group.alb_tg.arn
       }
     }
   }

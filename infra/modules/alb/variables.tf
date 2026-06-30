@@ -17,8 +17,3 @@ variable "alb_tg_ip" {
   type        = string
   description = "the ip of the target groups containers"
 }
-
-variable "tg_arn" {
-  type        = string
-  description = "the arn of the target group to forward to"
-}

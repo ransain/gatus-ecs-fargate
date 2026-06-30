@@ -1,3 +1,3 @@
-data "aws_ecr_repository" "gatus_ecr" {
+data "aws_ecr_repository" "ransain" {
   name = "ransain"
 }

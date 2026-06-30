@@ -2,8 +2,28 @@ resource "aws_ecs_cluster" "gatus_ecs" {
   name = "gatus-cluster"
 
   setting {
-    name = "containerInsights"
+    name  = "containerInsights"
     value = "enabled"
   }
 }
 
+resource "aws_ecs_task_definition" "service" {
+  family                   = "gatus-td"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  container_definitions = jsonencode([
+    {
+      name      = "gatus-app"
+      image     = var.container_image
+      cpu       = 10
+      memory    = 512
+      essential = true
+      portMappings = [
+        {
+          containerPort = 8080
+          hostPort      = 8080
+        }
+      ]
+    }
+  ])
+}
