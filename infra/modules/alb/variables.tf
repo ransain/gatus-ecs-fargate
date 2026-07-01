@@ -13,7 +13,7 @@ variable "alb_vpc_id" {
   description = "vpc id"
 }
 
-variable "alb_tg_ip" {
-  type        = string
+variable "alb_target_group_id" {
+  type        = list(string)
   description = "the ip of the target groups containers"
 }

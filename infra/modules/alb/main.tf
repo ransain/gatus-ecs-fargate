@@ -8,14 +8,14 @@ resource "aws_alb" "gatus_alb" {
 resource "aws_alb_target_group" "alb_tg" {
   name        = "gatus-alb-tg"
   target_type = "alb"
-  port        = "80"
+  port        = "8080"
   protocol    = "TCP"
   vpc_id      = var.alb_vpc_id
 }
 
 resource "aws_alb_target_group_attachment" "alb_tg_attach" {
   target_group_arn = aws_alb_target_group.alb_tg.arn
-  target_id        = var.alb_tg_ip # this is the ip of the containers, need to add this as an output from ecs module
+  target_id = [ var.alb_target_group_id ] # fix this
 }
 
 resource "aws_alb_listener" "http" {

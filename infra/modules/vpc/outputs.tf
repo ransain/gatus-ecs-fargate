@@ -10,6 +10,6 @@ output "sg_id" {
 
 output "pub_sub_id" {
   description = "id of the public subnet for alb"
-  value = aws_subnet.pub_sub.id
+  value = aws_subnet.pub_sub[*].id
 }
 ### fix output for above

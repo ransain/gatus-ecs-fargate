@@ -7,7 +7,7 @@ module "alb" {
   alb_sg     = module.vpc.sg_id
   alb_vpc_id = module.vpc.vpc_id
   alb_subnet = [ module.vpc.pub_sub_id ]
-  alb_tg_ip  = mo
+  alb_target_group_id = [ var.target_group_ip ]
 }
 
 module "ecr" {
