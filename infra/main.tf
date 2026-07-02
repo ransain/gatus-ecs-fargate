@@ -6,8 +6,7 @@ module "alb" {
   source     = "./modules/alb"
   alb_sg     = module.vpc.sg_id
   alb_vpc_id = module.vpc.vpc_id
-  alb_subnet = [ module.vpc.pub_sub_id ]
-  alb_target_group_id = [ var.target_group_ip ]
+  alb_subnet = [module.vpc.pub_sub_id]
 }
 
 module "ecr" {
@@ -16,7 +15,7 @@ module "ecr" {
 
 module "ecs" {
   source          = "./modules/ecs"
-  container_image = "${var.ecr_repo}:latest"
+  container_image = "${module.ecr.ecr_url}:latest"
 }
 
 module "r53" {

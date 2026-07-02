@@ -13,11 +13,6 @@ resource "aws_alb_target_group" "alb_tg" {
   vpc_id      = var.alb_vpc_id
 }
 
-resource "aws_alb_target_group_attachment" "alb_tg_attach" {
-  target_group_arn = aws_alb_target_group.alb_tg.arn
-  target_id = [ var.alb_target_group_id ] # fix this
-}
-
 resource "aws_alb_listener" "http" {
   load_balancer_arn = aws_alb.gatus_alb.arn
   port              = "80"
