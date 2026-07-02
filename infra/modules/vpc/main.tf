@@ -15,7 +15,7 @@ resource "aws_subnet" "pub_sub" {
   vpc_id            = aws_vpc.gatus_vpc.id
   availability_zone = var.az[count.index]
   tags = {
-    Name = "${var.app}-pub-${count.index}"
+    Name = "${var.app}-pub-${count.index + 1}"
   }
   cidr_block = var.cidr_block_pub[count.index]
 }
@@ -26,7 +26,7 @@ resource "aws_subnet" "priv_sub" {
   vpc_id            = aws_vpc.gatus_vpc.id
   availability_zone = var.az[count.index]
   tags = {
-    Name = "${var.app}-priv-${count.index}"
+    Name = "${var.app}-priv-${count.index + 1}"
   }
   cidr_block = var.cidr_block_priv[count.index]
 }
