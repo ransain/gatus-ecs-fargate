@@ -20,6 +20,8 @@ module "ecs" {
 
 module "r53" {
   source = "./modules/route53"
+  hosted_zone = "www.ransain.com"
+  ttl = "172800"
 }
 
 module "vpc" {
