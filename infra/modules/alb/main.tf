@@ -7,9 +7,9 @@ resource "aws_alb" "gatus_alb" {
 
 resource "aws_alb_target_group" "alb_tg" {
   name        = "gatus-alb-tg"
-  target_type = "alb"
+  target_type = "ip"
   port        = "8080"
-  protocol    = "TCP"
+  protocol    = "HTTP"
   vpc_id      = var.alb_vpc_id
 }
 

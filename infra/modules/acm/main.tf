@@ -5,3 +5,7 @@ resource "aws_acm_certificate" "gatus_cert" {
     create_before_destroy = true
   }
 }
+
+resource "aws_acm_certificate_validation" "gatus_valid" {
+  certificate_arn = aws_acm_certificate.gatus_cert.arn
+}
