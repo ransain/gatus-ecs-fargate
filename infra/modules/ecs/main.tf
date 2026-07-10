@@ -7,24 +7,15 @@ resource "aws_ecs_cluster" "gatus_ecs" {
   }
 }
 
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "ecs-task-role"
- 
-  assume_role_policy = <<EOF
-{
- "Version": "2012-10-17",
- "Statement": [
-   {
-     "Action": "sts:AssumeRole",
-     "Principal": {
-       "Service": "ecs-tasks.amazonaws.com"
-     },
-     "Effect": "Allow",
-     "Sid": ""
-   }
- ]
-}
-EOF
+data "aws_iam_policy_document" "ecs_iam_policy_document" {
+  statement {
+    actions = [ "sts:AssumeRole" ]
+    effect = "allow"
+    principals {
+      type = "service"
+      identifiers = [ "ecs-tasks.amazonaws.com" ]
+    }
+  }
 }
 
 resource "aws_ecs_task_definition" "gatus_task_def" {
