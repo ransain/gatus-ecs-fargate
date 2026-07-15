@@ -9,41 +9,41 @@ resource "aws_ecs_cluster" "gatus_ecs" {
 
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    actions = [ "sts:AssumeRole" ]
-    effect = "Allow"
+    actions = ["sts:AssumeRole"]
+    effect  = "Allow"
     principals {
-      type = "service"
-      identifiers = [ "ecs-tasks.amazonaws.com" ]
+      type        = "service"
+      identifiers = ["ecs-tasks.amazonaws.com"]
     }
   }
 }
 
 data "aws_iam_policy_document" "ecs_policy" {
   statement {
-    effect = "Allow"
-    resources = [ "*" ]
-    actions = [ 
+    effect    = "Allow"
+    resources = ["*"]
+    actions = [
       "ecr:GetAuthorizationToken",
       "ecr:BatchCheckLayerAvailability",
       "ecr:GetDownloadUrlForLayer",
       "ecr:GetBatchImage"
-     ]
+    ]
   }
 }
 
 resource "aws_iam_policy" "ecs_iam_policy" {
-  name = "ecs_gatus_policy"
+  name        = "ecs_gatus_policy"
   description = "Policy for ECS"
-  policy = data.aws_iam_policy_document.assume_role.json
+  policy      = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role" "ecs_iam_role" {
-  name = "ecs-role"
+  name               = "ecs-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_full_policy" {
-  role = aws_iam_role.ecs_iam_role.name
+  role       = aws_iam_role.ecs_iam_role.name
   policy_arn = aws_iam_policy.ecs_iam_policy.arn
 }
 
@@ -68,4 +68,5 @@ resource "aws_ecs_task_definition" "gatus_task_def" {
       ]
     }
   ])
+  execution_role_arn = aws_iam_role_policy_attachment.ecs_full_policy.policy_arn
 }

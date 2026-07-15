@@ -1,9 +1,14 @@
-variable "hosted_zone" {
+variable "subdomain" {
   type        = string
-  description = "name of the hosted zone"
+  description = "subdomain name"
 }
 
-variable "ttl" {
+variable "alb_dns" {
   type        = string
-  description = "ttl of the NS records"
+  description = "dns name of the alb"
+}
+
+variable "alb_zone" {
+  type        = string
+  description = "zone id of the alb"
 }
