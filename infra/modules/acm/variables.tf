@@ -1,7 +1,7 @@
 variable "domain_name" {
   type        = string
   description = "domain name for the acm"
-  default     = "*.ransain.com"
+  default     ="www.ransain.com"
 }
 
 variable "zone_id" {
