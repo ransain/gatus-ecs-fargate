@@ -18,33 +18,14 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 
-data "aws_iam_policy_document" "ecs_policy" {
-  statement {
-    effect    = "Allow"
-    resources = ["*"]
-    actions = [
-      "ecr:GetAuthorizationToken",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:GetBatchImage"
-    ]
-  }
-}
-
-resource "aws_iam_policy" "ecs_iam_policy" {
-  name        = "ecs_gatus_policy"
-  description = "Policy for ECS"
-  policy      = data.aws_iam_policy_document.assume_role.json
-}
-
 resource "aws_iam_role" "ecs_iam_role" {
-  name               = "ecs-role"
+  name               = "ecs-gatus-TaskExecutionRole"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_full_policy" {
   role       = aws_iam_role.ecs_iam_role.name
-  policy_arn = aws_iam_policy.ecs_iam_policy.arn
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
 resource "aws_ecs_task_definition" "gatus_task_def" {
