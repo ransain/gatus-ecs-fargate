@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "assume_role" {
     actions = ["sts:AssumeRole"]
     effect  = "Allow"
     principals {
-      type        = "service"
+      type        = "Service"
       identifiers = ["ecs-tasks.amazonaws.com"]
     }
   }
@@ -49,5 +49,5 @@ resource "aws_ecs_task_definition" "gatus_task_def" {
       ]
     }
   ])
-  execution_role_arn = aws_iam_role_policy_attachment.ecs_full_policy.policy_arn
+  execution_role_arn = aws_iam_role.ecs_iam_role.arn
 }

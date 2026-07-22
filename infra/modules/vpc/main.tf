@@ -93,6 +93,12 @@ resource "aws_vpc_security_group_ingress_rule" "https_rule" {
   ip_protocol = "tcp"
 }
 
+resource "aws_vpc_security_group_egress_rule" "egress" {
+  security_group_id = aws_security_group.sg_http_https.id
+  cidr_ipv4 = "0.0.0.0/0"
+  ip_protocol = "-1"
+}
+
 # SECURITY GROUP FOR ECS
 
 resource "aws_security_group" "ecs_sg" {
