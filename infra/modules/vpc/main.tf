@@ -86,6 +86,12 @@ resource "aws_route_table" "private" {
   }
 }
 
+resource "aws_route_table_association" "private" {
+  count          = length(var.cidr_block_priv)
+  subnet_id      = aws_subnet.priv_sub[count.index].id
+  route_table_id = aws_route_table.private.id
+}
+
 # SECURITY GROUP for HTTP and HTTPS
 
 resource "aws_security_group" "sg_http_https" {
