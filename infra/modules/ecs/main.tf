@@ -51,3 +51,12 @@ resource "aws_ecs_task_definition" "gatus_task_def" {
   ])
   execution_role_arn = aws_iam_role.ecs_iam_role.arn
 }
+
+resource "aws_ecs_service" "gatus" {
+  name                 = "gatus-service"
+  cluster              = aws_ecs_cluster.gatus_ecs.arn
+  task_definition      = aws_ecs_task_definition.gatus_task_def.arn
+  launch_type          = "FARGATE"
+  desired_count        = "2"
+  force_new_deployment = true
+}
