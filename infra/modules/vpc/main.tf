@@ -45,16 +45,21 @@ resource "aws_internet_gateway_attachment" "igw_attachment" {
 }
 
 resource "aws_eip" "nat" {
+  count = length(var.az)
   tags = {
-    Name = "gatus-nat-eip"
+    Name = "gatus-nat-eip-${count.index + 1}"
   }
 }
 
 resource "aws_nat_gateway" "gatus_nat" {
+  count             = length(var.az)
   connectivity_type = "public"
-  allocation_id     = aws_eip.nat.allocation_id
-  vpc_id            = aws_vpc.gatus_vpc.id
+  allocation_id     = aws_eip.nat[count.index].allocation_id
   depends_on        = [aws_internet_gateway.igw]
+  subnet_id         = aws_subnet.pub_sub[count.index].id
+  tags = {
+    Name = "${var.app}-nat-gw-${count.index + 1}"
+  }
 }
 
 ### ROUTE TABLE
@@ -79,17 +84,21 @@ resource "aws_route_table_association" "rt_pub" {
 }
 
 resource "aws_route_table" "private" {
+  count  = length(var.az)
   vpc_id = aws_vpc.gatus_vpc.id
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.gatus_nat.id
+    nat_gateway_id = aws_nat_gateway.gatus_nat[count.index].id
+  }
+  tags = {
+    "Name" = "${var.app}-priv-rt-${count.index + 1}"
   }
 }
 
 resource "aws_route_table_association" "private" {
   count          = length(var.cidr_block_priv)
   subnet_id      = aws_subnet.priv_sub[count.index].id
-  route_table_id = aws_route_table.private.id
+  route_table_id = aws_route_table.private[count.index].id
 }
 
 # SECURITY GROUP for HTTP and HTTPS
