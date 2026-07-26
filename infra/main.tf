@@ -16,8 +16,10 @@ module "ecr" {
 }
 
 module "ecs" {
-  source          = "./modules/ecs"
-  container_image = "${module.ecr.ecr_url}:latest"
+  source            = "./modules/ecs"
+  container_image   = "${module.ecr.ecr_url}:latest"
+  security_group_id = module.vpc.sg_ecs_id
+  subnet_id         = module.vpc.priv_sub_id
 }
 
 module "r53" {

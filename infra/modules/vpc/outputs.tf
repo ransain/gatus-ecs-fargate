@@ -17,3 +17,8 @@ output "pub_sub_id" {
   description = "id of the public subnet for alb"
   value       = aws_subnet.pub_sub[*].id
 }
+
+output "priv_sub_id" {
+  description = "id of the private subnets for ecs"
+  value       = aws_subnet.priv_sub[*].id
+}

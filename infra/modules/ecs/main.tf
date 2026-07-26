@@ -59,4 +59,10 @@ resource "aws_ecs_service" "gatus" {
   launch_type          = "FARGATE"
   desired_count        = "2"
   force_new_deployment = true
+
+  network_configuration {
+    security_groups  = [var.security_group_id]
+    subnets          = var.subnet_id
+    assign_public_ip = false
+  }
 }
