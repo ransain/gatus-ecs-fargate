@@ -9,6 +9,11 @@ variable "security_group_id" {
 }
 
 variable "subnet_id" {
-  type = list(string)
+  type        = list(string)
   description = "ids of the private subnets"
+}
+
+variable "target_group_arn" {
+  type        = string
+  description = "arn of the target group associated with the alb"
 }

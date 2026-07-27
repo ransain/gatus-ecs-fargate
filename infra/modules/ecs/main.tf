@@ -53,16 +53,23 @@ resource "aws_ecs_task_definition" "gatus_task_def" {
 }
 
 resource "aws_ecs_service" "gatus" {
-  name                 = "gatus-service"
-  cluster              = aws_ecs_cluster.gatus_ecs.arn
-  task_definition      = aws_ecs_task_definition.gatus_task_def.arn
-  launch_type          = "FARGATE"
-  desired_count        = "2"
-  force_new_deployment = true
+  name                          = "gatus-service"
+  cluster                       = aws_ecs_cluster.gatus_ecs.arn
+  task_definition               = aws_ecs_task_definition.gatus_task_def.arn
+  launch_type                   = "FARGATE"
+  desired_count                 = "2"
+  availability_zone_rebalancing = "ENABLED"
+  force_new_deployment          = true
 
   network_configuration {
     security_groups  = [var.security_group_id]
     subnets          = var.subnet_id
     assign_public_ip = false
+  }
+
+  load_balancer {
+    container_name   = "gatus-app"
+    container_port   = "8080"
+    target_group_arn = var.target_group_arn
   }
 }
