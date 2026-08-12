@@ -72,4 +72,8 @@ resource "aws_ecs_service" "gatus" {
     container_port   = "8080"
     target_group_arn = var.target_group_arn
   }
+
+  lifecycle {
+    ignore_changes = [ task_definition ]
+  }
 }
