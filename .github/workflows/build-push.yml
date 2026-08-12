@@ -7,6 +7,9 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  ECR_REPO: ${{ secrets.ECR_REPO }}
+
 jobs:
   build:
     runs-on: ubuntu:latest
@@ -14,7 +17,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v6
 
+      - name: Switch Directory
+        run: cd ./app
+
+
       - name: Configure AWS Credentials with OIDC
         uses: aws-actions/configure-aws-credentials@v6.2.3
         with: 
-          role-to-assume: 
+          role-to-assume: ${{ secrets.OIDC_ARN }}
