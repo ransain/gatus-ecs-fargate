@@ -18,10 +18,35 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Switch Directory
-        run: cd ./app && ls
-
+        run: cd ./app
 
       - name: Configure AWS Credentials with OIDC
         uses: aws-actions/configure-aws-credentials@v6.2.3
         with: 
           role-to-assume: ${{ secrets.OIDC_ARN }}
+          aws-region: ${{ secrets.OIDC_REGION }}
+
+      - name: Log in to ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2.1.6
+
+      - name: Build & Push Docker Image
+        run: |
+            echo "Building Docker Image"
+            docker build -t ${{ secrets.ECR_REPO }}:${{ github.sha }} .
+            docker push ${{ secrets.ECR_REPO }}:${{ github.sha }}
+
+      - name: Download Current Task Definition
+        run: |
+            echo "Downloading current task definition"
+            aws ecs describe-task-definition \
+              --task-definition gatus-td \
+              --query taskDefinition > task-definition.json
+
+      - name: Clean Metadata From Task Definition
+        run: |
+          jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .deregisteredAt, .registeredBy, .enableFaultInjection)' task-definition.json > cleaned-task-definition.json
+          mv cleaned-task-definition.json task-definition.json
+        
+      - name: Render New Task Definition
+        uses: 
