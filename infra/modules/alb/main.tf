@@ -11,6 +11,9 @@ resource "aws_alb_target_group" "alb_tg" {
   port        = "8080"
   protocol    = "HTTP"
   vpc_id      = var.alb_vpc_id
+  health_check {
+    path = "/health"
+  }
 }
 
 resource "aws_alb_listener" "http" {
