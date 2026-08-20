@@ -9,6 +9,8 @@ permissions:
 
 env:
   ECR_REPO: ${{ secrets.ECR_REPO }}
+  ECS_SERVICE: gatus-service
+  ECS_CLUSTER: gatus-cluster
 
 jobs:
   build:
@@ -50,4 +52,6 @@ jobs:
         id: deploy-td
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2.6.3
         with:
-            task-definition:
+            task-definition: ${{ steps.task-def.outputs.task-definition }}
+            service: ${{ env.ECS_SERVICE }}
+            cluster: ${{ env.ECS_CLUSTER }}
