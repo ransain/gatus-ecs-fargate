@@ -38,7 +38,7 @@ jobs:
         id: build-image
         run: |
             echo "Building Docker Image"
-            ls
+            cd ./app
             docker build -t ${{ secrets.ECR_REPO }}:${{ github.sha }} .
             docker push ${{ secrets.ECR_REPO }}:${{ github.sha }}
             echo "image-uri=${{ secrets.ECR_REPO }}:${{ github.sha }}" >> $GITHUB_OUTPUT
