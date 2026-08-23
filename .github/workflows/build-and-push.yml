@@ -49,7 +49,7 @@ jobs:
         with:
             task-definition-family: ${{ secrets.FAMILY_TD }}
             container-name: ${{ secrets.CONTAINER_NAME }}
-            image: ${{ steps.build-image.outputs.image }}
+            image: ${{ steps.build-image.outputs.image-uri }}
     
       - name: Deploy New Task Definition
         id: deploy-td
