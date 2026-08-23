@@ -41,7 +41,7 @@ jobs:
             cd ./app
             docker build -t ${{ secrets.ECR_REPO }}:${{ github.sha }} .
             docker push ${{ secrets.ECR_REPO }}:${{ github.sha }}
-            echo "image-uri=${{ secrets.ECR_REPO }}:${{ github.sha }}" >> $GITHUB_OUTPUT
+            echo "image=${{ secrets.ECR_REPO }}:${{ github.sha }}" >> $GITHUB_OUTPUT
         
       - name: Render New Task Definition
         id: task-def
@@ -49,7 +49,7 @@ jobs:
         with:
             task-definition-family: ${{ secrets.FAMILY_TD }}
             container-name: ${{ secrets.CONTAINER_NAME }}
-            image: ${{ steps.build-image.outputs.image-uri }}
+            image: ${{ steps.build-image.outputs.image }}
     
       - name: Deploy New Task Definition
         id: deploy-td
