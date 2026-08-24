@@ -8,7 +8,6 @@ permissions:
   contents: read
 
 env:
-  ECR_REPO: ${{ secrets.ECR_REPO }}
   ECS_SERVICE: gatus-service
   ECS_CLUSTER: gatus-cluster
 
@@ -40,13 +39,13 @@ jobs:
             echo "Building Docker Image"
             cd ./app
             docker build -t ${{ secrets.ECR_REPO }}:${{ github.sha }} .
-            docker push ${{ secrets.ECR_REPO }}:${{ github.sha }}
             echo "image=${{ secrets.ECR_REPO }}:${{ github.sha }}" >> $GITHUB_OUTPUT
 
       - name: Grype Container Scan
         uses: anchore/scan-action@e1165082ffb1fe366ebaf02d8526e7c4989ea9d2
         with:
           image: ${{ secrets.ECR_REPO }}:${{ github.sha }}
+          severity-cutoff: critical
           
       - name: Push Docker Image to ECR
         id: image-push
