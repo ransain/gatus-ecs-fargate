@@ -34,7 +34,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2.1.6
 
-      - name: Build & Push Docker Image
+      - name: Build Docker Image
         id: build-image
         run: |
             echo "Building Docker Image"
@@ -42,6 +42,18 @@ jobs:
             docker build -t ${{ secrets.ECR_REPO }}:${{ github.sha }} .
             docker push ${{ secrets.ECR_REPO }}:${{ github.sha }}
             echo "image=${{ secrets.ECR_REPO }}:${{ github.sha }}" >> $GITHUB_OUTPUT
+
+      - name: Grype Container Scan
+        uses: anchore/scan-action@e1165082ffb1fe366ebaf02d8526e7c4989ea9d2
+        with:
+          image: ${{ secrets.ECR_REPO }}:${{ github.sha }}
+          
+      - name: Push Docker Image to ECR
+        id: image-push
+        run: |
+            echo "Pushing Docker image to ECR"
+            docker push ${{ secrets.ECR_REPO }}:${{ github.sha }}
+            echo "Push successful"
         
       - name: Render New Task Definition
         id: task-def
