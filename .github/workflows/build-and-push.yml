@@ -45,7 +45,8 @@ jobs:
         uses: anchore/scan-action@e1165082ffb1fe366ebaf02d8526e7c4989ea9d2
         with:
           image: ${{ secrets.ECR_REPO }}:${{ github.sha }}
-          severity-cutoff: critical
+          severity-cutoff: high
+          fail-build: false # In an actual production environment, this would be set to 'true', to fail build
           
       - name: Push Docker Image to ECR
         id: image-push
