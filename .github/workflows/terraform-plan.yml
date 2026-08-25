@@ -1,0 +1,31 @@
+name: Terraform Plan
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  TF_VERSION: 
+
+jobs:
+  terraform-plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infra
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Configure AWS Credentials with OIDC
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c
+        with: 
+          role-to-assume: ${{ secrets.OIDC_ARN }}
+          aws-region: ${{ secrets.OIDC_REGION }}
+      
+      - name: Terraform Init
+        run: terraform init

@@ -42,6 +42,7 @@ jobs:
           image: ${{ secrets.ECR_REPO }}:${{ github.sha }}
           severity-cutoff: medium
           fail-build: false # In an actual production environment, this would be set to 'true', to fail build
+          output-format: table
           
       - name: Push Docker Image to ECR
         id: image-push
