@@ -32,5 +32,8 @@ jobs:
         with:
           terraform-version: $TF_VERSION
 
+      - name: terraform init
+        run: terraform init
+
       - name: Destroy Infrastructure
         run: terraform destroy --auto-approve
