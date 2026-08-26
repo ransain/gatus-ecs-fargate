@@ -41,5 +41,14 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
+      - name: IaC Scanning
+        uses: bridgecrewio/checkov-action@99bb2caf247dfd9f03cf984373bc6043d4e32ebf
+        with:
+          output-format: cli
+          soft-fail: false 
+
       - name: Terraform Plan
         run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply --auto-approve
