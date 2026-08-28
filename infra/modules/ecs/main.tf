@@ -38,8 +38,8 @@ resource "aws_ecs_task_definition" "gatus_task_def" {
     {
       name      = "gatus-app"
       image     = var.container_image
-      cpu       = 256
-      memory    = 512
+      cpu       = var.cpu
+      memory    = var.memory
       essential = true
       portMappings = [
         {

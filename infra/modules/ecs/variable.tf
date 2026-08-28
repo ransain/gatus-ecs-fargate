@@ -17,3 +17,15 @@ variable "target_group_arn" {
   type        = string
   description = "arn of the target group associated with the alb"
 }
+
+variable "cpu" {
+  type        = string
+  description = "size of the cpu for the container"
+  default     = "256"
+}
+
+variable "memory" {
+  type        = string
+  description = "size of memory of the container"
+  default     = "512"
+}
