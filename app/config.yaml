@@ -10,7 +10,7 @@ endpoints:
 
   - name: back-end
     group: core
-    url: "https://example.org/"
+    url: "https://github.com/"
     interval: 5m
     conditions:
       - "[STATUS] == 200"
@@ -47,7 +47,7 @@ endpoints:
       - "[CONNECTED] == true"
 
   - name: check-domain-expiration
-    url: "https://example.org/"
+    url: "https://google.co.uk/"
     interval: 1h
     conditions:
       - "[DOMAIN_EXPIRATION] > 720h"
