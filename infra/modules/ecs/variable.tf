@@ -19,13 +19,13 @@ variable "target_group_arn" {
 }
 
 variable "cpu" {
-  type        = string
+  type        = number
   description = "size of the cpu for the container"
   default     = "256"
 }
 
 variable "memory" {
-  type        = string
+  type        = number
   description = "size of memory of the container"
   default     = "512"
 }
