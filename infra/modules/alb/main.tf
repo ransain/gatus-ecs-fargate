@@ -3,6 +3,9 @@ resource "aws_alb" "gatus_alb" {
   name               = "gatus-alb"
   security_groups    = [var.alb_sg]
   subnets            = var.alb_subnet
+  tags = {
+    "Name" = "gatus-alb"
+  }
 }
 
 resource "aws_alb_target_group" "alb_tg" {
@@ -13,6 +16,9 @@ resource "aws_alb_target_group" "alb_tg" {
   vpc_id      = var.alb_vpc_id
   health_check {
     path = "/health"
+  }
+  tags = {
+    "Name" = "gatus-tg"
   }
 }
 
@@ -30,6 +36,9 @@ resource "aws_alb_listener" "http" {
       status_code = "HTTP_301"
     }
   }
+  tags = {
+    "Name" = "gatus-http"
+  }
 }
 
 resource "aws_alb_listener" "https" {
@@ -45,5 +54,8 @@ resource "aws_alb_listener" "https" {
         arn = aws_alb_target_group.alb_tg.arn
       }
     }
+  }
+  tags = {
+    "Name" = "gatus-https"
   }
 }

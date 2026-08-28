@@ -1,7 +1,7 @@
 endpoints:
   - name: front-end
     group: core
-    url: "https://twin.sh/health"
+    url: "https://ransain.com/health"
     interval: 5m
     conditions:
       - "[STATUS] == 200"
@@ -10,7 +10,7 @@ endpoints:
 
   - name: back-end
     group: core
-    url: "https://github.com/"
+    url: "https://example.org/"
     interval: 5m
     conditions:
       - "[STATUS] == 200"
@@ -47,7 +47,7 @@ endpoints:
       - "[CONNECTED] == true"
 
   - name: check-domain-expiration
-    url: "https://google.co.uk/"
+    url: "https://ransain.com/"
     interval: 1h
     conditions:
       - "[DOMAIN_EXPIRATION] > 720h"

@@ -5,6 +5,9 @@ resource "aws_ecs_cluster" "gatus_ecs" {
     name  = "containerInsights"
     value = "enabled"
   }
+  tags = {
+    "Name" = "gatus-cluster"
+  }
 }
 
 data "aws_iam_policy_document" "assume_role" {
@@ -21,6 +24,9 @@ data "aws_iam_policy_document" "assume_role" {
 resource "aws_iam_role" "ecs_iam_role" {
   name               = "ecs-gatus-TaskExecutionRole"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  tags = {
+    "Name" = "gatus-ecs-taskex-role"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_full_policy" {
@@ -50,6 +56,9 @@ resource "aws_ecs_task_definition" "gatus_task_def" {
     }
   ])
   execution_role_arn = aws_iam_role.ecs_iam_role.arn
+  tags = {
+    "Name" = "gatus-taskdef"
+  }
 }
 
 resource "aws_ecs_service" "gatus" {
@@ -75,5 +84,8 @@ resource "aws_ecs_service" "gatus" {
 
   lifecycle {
     ignore_changes = [task_definition]
+  }
+  tags = {
+    "Name" = "gatus-ecs-service"
   }
 }
