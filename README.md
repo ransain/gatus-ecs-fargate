@@ -8,7 +8,7 @@ Uptime monitoring application, running on ECS. Infrastructure created with Terra
 
 ## Architecture
 
-![Architecture Diagram] (./images/gatus-architecture.jpeg)
+![Architecture Diagram](./images/gatus-architecture.jpeg)
 
 ---
 
