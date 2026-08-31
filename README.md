@@ -1,8 +1,8 @@
-# Gatus ECS Project!
+# Gatus App ECS Fargate!
 
 ## Overview
 
-Uptime monitoring application, running on ECS. Infrastructure created with Terraform and application deployed end to end via GitHub Actions (CI/CD)
+This project deploys Gatus, an application for endpoint health monitoring, running on AWS ECS fargate and deployed with Docker, with the Infrastructure created and modularised via Terraform, and CI/CD to automate the process, while following real DevOps practices
 
 ---
 
@@ -41,4 +41,20 @@ gatus-ecs/
 ├── .gitignore
 │
 └── README.md
+```
+
+---
+
+## Local Development
+
+(Docker must be installed)
+
+```
+git clone https://github.com/ransain/gatus-ecs.git
+cd /app
+docker build -t gatus .
+docker run -p 8080 -d gatus:latest
+
+Then visit
+http://localhost:8080
 ```
