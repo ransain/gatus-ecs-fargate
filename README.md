@@ -1,8 +1,8 @@
-# Gatus App ECS Fargate!
+# Gatus App ECS Fargate
 
 ## Overview
 
-This project deploys Gatus, an application for endpoint health monitoring, running on AWS ECS fargate and deployed with Docker, with the Infrastructure created and modularised via Terraform, and CI/CD to automate the process, while following real DevOps practices
+This project deploys Gatus, an application for endpoint health monitoring, running on AWS ECS Fargate and deployed with Docker, with the Infrastructure created and modularised via Terraform, and CI/CD to automate the process, while following real DevOps practices
 
 ---
 
