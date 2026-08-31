@@ -140,3 +140,33 @@ GitHub Actions is used to automate the **application build**, **security scannin
 - Runs Terraform to safely **destroy the deployed infrastructure**
 
 ![Destroy](./images/destroy-pipeline.png)
+
+---
+
+## Summary
+
+## Application
+
+### 1. What is Gatus?
+
+**Gatus** is an open-source application used to monitor the availability and health of websites, APIs and other services.
+
+It regularly checks configured services and shows their current status through a simple dashboard. If a service becomes unavailable or stops responding as expected, Gatus can detect the issue and provide alerts.
+
+This gives development, DevOps and infrastructure teams a simple way to see whether their services are up and running and quickly identify when something goes wrong.
+
+### 2. Why did you choose Gatus?
+
+I chose Gatus because it is a genuinely useful application for companies, particularly for development, DevOps and infrastructure teams that need visibility into service availability.
+
+### 3. Why host it on ECS Fargate?
+
+I chose **ECS Fargate** to replicate a more production-like container deployment while avoiding the need to manage the underlying servers.
+
+EC2 or another VM could also run Gatus, but Fargate allowed me to focus on the containerised application and surrounding AWS infrastructure while AWS manages the underlying compute.
+
+I chose AWS rather than a free hosting platform because it gives me control over the **underlying infrastructure** and allows the environment to be fully managed using **Terraform**. This includes provisioning the networking, compute, load balancing, security and supporting AWS services as infrastructure as code, rather than having these components abstracted away by the hosting platform.
+
+### 4. How many users are there or how many are you expecting?
+
+Expecting very few. This is primarily demonstrating a Cloud/DevOps deployment rather than a production service with a large user base. In a real world deployment, the expected users would likely be DevOps, development or infrastructure teams who need to view the health of their applications and services.
