@@ -8,13 +8,13 @@ This project deploys Gatus, an endpoint health monitoring application, on AWS EC
 
 ## Key Features
 
-- **~96% Docker image size reduction** — Optimised the container image from approximately 305 MB to 13 MB using a multi-stage build and minimal `scratch` runtime image.
-- **Infrastructure as Code**-AWS infrastructure is provisioned and modularised using Terraform.
-- **OIDC authentication**-GitHub Actions authenticates with AWS using OIDC, avoiding long-lived AWS access keys.
-- **Container security scanning**-Docker images are scanned with Grype for known vulnerabilities before being pushed to Amazon ECR.
-- **Automated CI/CD**-GitHub Actions automates image builds, security scanning, ECR publishing and Terraform deployments.
-- **HTTPS & custom domain**-Application exposed through an Application Load Balancer with ACM-managed TLS and Route 53 DNS.
-- **AWS ECS Fargate**-Application runs as a containerised workload on a serverless ECS deployment
+- **~96% Docker image size reduction**: Optimised the container image from approximately 305 MB to 13 MB using a multi-stage build and minimal `scratch` runtime image.
+- **Infrastructure as Code**: AWS infrastructure is provisioned and modularised using Terraform.
+- **OIDC authentication**: GitHub Actions authenticates with AWS using OIDC, avoiding long-lived AWS access keys.
+- **Container security scanning**: Docker images are scanned with Grype for known vulnerabilities before being pushed to Amazon ECR.
+- **Automated CI/CD**: GitHub Actions automates image builds, security scanning, ECR publishing and Terraform deployments.
+- **HTTPS & custom domain**: Application exposed through an Application Load Balancer with ACM-managed TLS and Route 53 DNS.
+- **AWS ECS Fargate**: Application runs as a containerised workload on a serverless ECS deployment
 
 ---
 
