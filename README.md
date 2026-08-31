@@ -143,8 +143,6 @@ GitHub Actions is used to automate the **application build**, **security scannin
 
 ---
 
-## Summary
-
 ## Application
 
 ### 1. What is Gatus?
