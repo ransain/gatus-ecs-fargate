@@ -6,6 +6,12 @@ This project deploys Gatus, an application for endpoint health monitoring, runni
 
 ---
 
+## Live App
+
+![App Running](./images/gatus-running.png)
+
+---
+
 ## Architecture
 
 ![Architecture Diagram](./images/gatus-architecture.jpeg)
@@ -58,3 +64,26 @@ docker run -p 8080 -d gatus:latest
 Then visit
 http://localhost:8080
 ```
+
+---
+
+## CI/CD
+
+#### Build & Push Pipeline
+- Creates a Docker image of the application with a SHA commit tag
+- Runs a Grype scan for identifying vulnerabilities 
+- Pushes the image to ECR and updates the task definition
+
+![Build & Push](./images/image-pipeline.png)
+
+#### Deploy Pipeline
+- Initialises Terraform and configure remote backend (S3)
+- Runs linting, formatting, and validation checks
+- Plan & Apply the infrastructure to deploy to AWS
+
+![Deploy](./images/deploy-pipeline.png)
+
+#### Destroy Pipeline
+- Tears down all the infrastructure safely
+
+![Destroy](./images/destroy-pipeline.png)
